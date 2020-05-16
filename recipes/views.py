@@ -16,7 +16,6 @@ def recipes_list(request):
 
         return Response(serializer.data)
     else:
-        print(request.user)
         serializer = RecipeSerializer(data=request.data)
 
         if serializer.is_valid():

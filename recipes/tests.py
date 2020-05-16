@@ -58,6 +58,53 @@ class RecipeTests(APITestCase):
         self.assertEqual(200, res.status_code)
         self.assertEqual(serializer.data, res.data)
 
+    def test_post_valid_recipe(self):
+        data = {
+            "name": "Lody sorbet malina",
+            "base_amount": 12412,
+            "ingredients": [
+                {
+                    "name": "Baza Mleczna Natural Milk Base GX",
+                    "price": 25.34,
+                    "percentage": 0.187
+                },
+                {
+                    "name": "Pasta orzech ziemny",
+                    "price": 23.41,
+                    "percentage": 0.082
+                }
+            ]
+        }
+        res = self.client.post('/api/recipes/', data, format='json', HTTP_AUTHORIZATION=f'JWT {self.token}')
+        self.assertEqual(201, res.status_code)
+
+        recipe = Recipe.objects.get(name="Lody sorbet malina")
+        serializer = RecipeSerializer(instance=recipe)
+        """
+        need to exclude id from serializer.data, as sent data doesn't contain id
+        same goes for all the new fields that are calculated server-side in serializers
+        """
+        serializer = serializer.data
+        del serializer['id']
+        del serializer['total_price']
+        del serializer['image']
+        del serializer['ingredient_count']
+        for ingredient in serializer['ingredients']:
+            del ingredient['amount']
+            del ingredient['cost']
+
+        self.assertEqual(serializer, data)
+
+    def test_post_invalid_recipe(self):
+        data = {
+            "name": "Lody sorbet malina",
+            "base_amount": "dsad",
+            "ingredients": ""
+        }
+        res = self.client.post('/api/recipes/', data, format='json', HTTP_AUTHORIZATION=f'JWT {self.token}')
+
+        self.assertEqual(400, res.status_code)
+
     def test_get_valid_recipe(self):
         res = self.client.get('/api/recipes/1/', {}, HTTP_AUTHORIZATION=f'JWT {self.token}')
 
@@ -71,5 +118,3 @@ class RecipeTests(APITestCase):
         res = self.client.get('/api/recipes/2543/', {}, HTTP_AUTHORIZATION=f'JWT {self.token}')
 
         self.assertEqual(404, res.status_code)
-
-
