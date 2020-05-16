@@ -1,7 +1,7 @@
 from django.contrib.auth.hashers import make_password
 from rest_framework.test import APITestCase
-
 from django.contrib.auth.models import User
+
 from .serializers import RecipeListSerializer, RecipeSerializer, UserSerializer
 from .models import Recipe
 import json

@@ -26,7 +26,7 @@ from recipes import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/token-auth/', obtain_jwt_token),
-    path('api/recipes/', views.get_recipes_list),
+    path('api/recipes/', views.recipes_list),
     path('api/recipes/<int:recipe_id>/', views.get_recipe_info),
     path('api/send-email/', views.post_email),
     path('api/current-user/', views.get_current_user),

@@ -3,9 +3,9 @@ from django.db import models
 
 class Recipe(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     base_amount = models.IntegerField()
-    image = models.ImageField(upload_to='', blank=True)
+    image = models.ImageField(upload_to='', blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -13,7 +13,7 @@ class Recipe(models.Model):
 
 class Ingredient(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     price = models.FloatField()
 
     def __str__(self):
@@ -24,6 +24,9 @@ class RecipeIngredient(models.Model):
     recipe = models.ForeignKey(Recipe, related_name='ingredients', on_delete=models.CASCADE)
     percentage = models.FloatField()
     ingredient = models.ForeignKey(Ingredient, related_name='ingredient', on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ['recipe', 'ingredient']
 
 
     def __str__(self):
