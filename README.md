@@ -127,7 +127,7 @@ Use ` python manage.py runserver ` to run the server locally.
 ```
   * Response:
     * POST Code: 201 or 400 if bad request
-  * /api/user/
+* /api/user/
   * Methods:
     * GET
     * POST
