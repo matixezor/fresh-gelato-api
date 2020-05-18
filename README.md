@@ -17,6 +17,7 @@ Use ` python manage.py makemigrations ` and ` python manage.py migrate ` to setu
 Use ` python manage.py createsuper ` to create your admin account. <br/>
 Use ` python manage.py runserver ` to run the server locally. 
 ## API endpoints
+To attach token to the request, add a header: ` Authorization: JWT {token} `
 * api/token-auth/ 
   * Methods: 
     * POST
