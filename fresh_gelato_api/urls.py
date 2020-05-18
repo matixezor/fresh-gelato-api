@@ -29,7 +29,7 @@ urlpatterns = [
     path('api/recipes/', views.recipes_list),
     path('api/recipes/<int:recipe_id>/', views.get_recipe_info),
     path('api/send-email/', views.post_email),
-    path('api/current-user/', views.get_current_user),
+    path('api/user/', views.user_view),
     url(r'^rest-auth/', include('rest_auth.urls'))
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

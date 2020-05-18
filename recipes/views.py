@@ -15,7 +15,7 @@ def recipes_list(request):
         serializer = RecipeListSerializer(recipes, context={'request': request}, many=True)
 
         return Response(serializer.data)
-    else:
+    elif request.user.is_staff:
         serializer = RecipeSerializer(data=request.data)
 
         if serializer.is_valid():
@@ -23,6 +23,8 @@ def recipes_list(request):
             return Response(status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 @api_view(['GET'])
 def get_recipe_info(request, recipe_id):
@@ -31,14 +33,26 @@ def get_recipe_info(request, recipe_id):
 
         serializer = RecipeSerializer(instance=recipe, context={'request': request})
         return Response(serializer.data)
-
     except:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-@api_view(['GET'])
-def get_current_user(request):
-    serializer = UserSerializer(request.user)
-    return Response(serializer.data)
+@api_view(['GET', 'POST'])
+@permission_classes([permissions.AllowAny])
+def user_view(request):
+    if request.method == 'GET' and request.user.is_authenticated:
+        serializer = UserSerializer(request.user)
+
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = UserSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 @api_view(['POST'])
 @permission_classes([permissions.AllowAny])
