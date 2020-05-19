@@ -13,9 +13,9 @@ I wanted to learn DRF and this is the result. There's still some room to improve
 and it will be done soon.
 ## Installation
 Use ` $ pip install -r requirements.txt ` to install all the required packages. <br/>
-Use ` python manage.py makemigrations ` and ` python manage.py migrate ` to setup your database. <br/>
-Use ` python manage.py createsuper ` to create your admin account. <br/>
-Use ` python manage.py runserver ` to run the server locally. 
+Use ` $ python manage.py makemigrations ` and ` python manage.py migrate ` to setup your database. <br/>
+Use ` $ python manage.py createsuper ` to create your admin account. <br/>
+Use ` $ python manage.py runserver ` to run the server locally. 
 ## API endpoints
 To attach token to the request, add a header: ` Authorization: JWT {token} `
 * api/token-auth/ 
@@ -161,4 +161,4 @@ To attach token to the request, add a header: ` Authorization: JWT {token} `
   ```
 ## Tests
 There's some basic unit tests. <br/>
-To run them use: ` python manage.py test `
+To run them use: ` $ python manage.py test `
