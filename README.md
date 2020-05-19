@@ -28,7 +28,7 @@ To attach token to the request, add a header: ` Authorization: JWT {token} `
      ```javascript 
     * { "username": string, "password": string } 
      ```
-  * Response: 200 
+  * Response: Code: 200,  Json:
     ```javascript 
     {
     "token": string,
@@ -72,7 +72,7 @@ To attach token to the request, add a header: ` Authorization: JWT {token} `
   * Response: 
     * POST Code: 201 or 400 if Bad Request 
     * If unauthorized: 401
-    * GET Code: 200 
+    * GET Code: 200, Json:
     ```javascript 
     [{
             "id": int,
@@ -94,7 +94,7 @@ To attach token to the request, add a header: ` Authorization: JWT {token} `
   * Description: Get specified recipe 
   * Response: 
     * If unauthorized: 401
-    * GET Code: 200 or 404 if not found
+    * GET Code: 200 or 404 if not found, Json:
   ```javascript
   {
       "id": int,
@@ -150,7 +150,7 @@ To attach token to the request, add a header: ` Authorization: JWT {token} `
     * Response:
       * POST Code: 201 or 400 if bad request
       * If unauthorized: 401
-      * GET Code: 200
+      * GET Code: 200, Json:
   ```javascript
   {
       "username": string,
