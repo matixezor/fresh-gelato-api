@@ -25,21 +25,21 @@ To attach token to the request, add a header: ` Authorization: JWT {token} `
     * POST: Allow any
   * Description: Send login credentials to receive token and user info 
   * Query: 
-```javascript 
-  { "username": string, "password": string } 
-```
+     ```javascript 
+    * { "username": string, "password": string } 
+     ```
   * Response: 200 
- ```javascript
-{
+    ```javascript 
+    {
     "token": string,
     "user": {
         "username": string,
         "first_name": string,
         "last_name": string,
         "email": string
+       }
     }
-}
-```
+    ```
 * api/recipes/ 
   * Methods: 
     * GET    
@@ -49,42 +49,43 @@ To attach token to the request, add a header: ` Authorization: JWT {token} `
     * POST: Staff only 
   * Description: Get all recipes or Create new recipe 
   * Query: 
-```javascript
-{
+  ```javascript
+  {
   "name": string,
   "image": string, #not required
   "base_amount": int,
   "ingredients": [
-    {
-      "name": string,
-      "price": int,
-      "percentage": int
-    },
-    {
-      "name": string,
-      "price": int,
-      "percentage": int
-    }
-  ]
-}
-``` 
+     {
+       "name": string,
+       "price": int,
+       "percentage": int
+     },
+     {
+       "name": string,
+       "price": int,
+       "percentage": int
+     },
+     ...
+    ]
+   }
+  ``` 
   * Response: 
     * POST Code: 201 or 400 if Bad Request 
     * If unauthorized: 401
     * GET Code: 200 
-```javascript 
-[{
-        "id": int,
-        "name": string,
-        "image": null or string
-    }, {
-        "id": int,
-        "name": string,
-        "image": null or string
-    },
-    ...
-}]
-``` 
+    ```javascript 
+    [{
+            "id": int,
+            "name": string,
+            "image": null or string
+        }, {
+            "id": int,
+            "name": string,
+            "image": null or string
+        },
+        ...
+    }]
+    ``` 
 * /api/recipes/{id} 
   * Methods:
     * GET
@@ -94,38 +95,38 @@ To attach token to the request, add a header: ` Authorization: JWT {token} `
   * Response: 
     * If unauthorized: 401
     * GET Code: 200 or 404 if not found
-```javascript
-{
-    "id": int,
-    "name": string,
-    "base_amount": int,
-    "total_price": float,
-    "image": string or null,
-    "ingredient_count": int,
-    "ingredients": [{
-            "name": string,
-            "amount": int,
-            "price": float,
-            "cost": float,
-            "percentage": float
-        },
-        ...
-    ],
-}
-```
+  ```javascript
+  {
+      "id": int,
+      "name": string,
+      "base_amount": int,
+      "total_price": float,
+      "image": string or null,
+      "ingredient_count": int,
+      "ingredients": [{
+              "name": string,
+              "amount": int,
+              "price": float,
+              "cost": float,
+              "percentage": float
+          },
+          ...
+      ],
+  }
+  ```
 * /api/send-email/ 
   * Methods: POST 
   * Authorization: 
     * POST: Allow any 
   * Description: Post email to contact the company 
   * Query:
-```javascript
-{
-    "sender_name": string,
-    "sender_mail": string,
-    "content": string
-}
-```
+  ```javascript
+  {
+      "sender_name": string,
+      "sender_mail": string,
+      "content": string
+  }
+  ```
   * Response:
     * POST Code: 201 or 400 if bad request
 * /api/user/
@@ -137,27 +138,27 @@ To attach token to the request, add a header: ` Authorization: JWT {token} `
     * POST: Allow any
   * Description: Get authenticated user info or Create new user
   * Query:
-```javascript
-{
-  "username": string,
-  "password": string,
-  "first_name": string,	#not required
-  "last_name": string,	#not required
-  "email": string	#not required
-}
-```
-  * Response:
-    * POST Code: 201 or 400 if bad request
-    * If unauthorized: 401
-    * GET Code: 200
-```javascript
-{
+  ```javascript
+  {
     "username": string,
-    "first_name": string,
-    "last_name": string,
-    "email": string
-}
-```
+    "password": string,
+    "first_name": string,	#not required
+    "last_name": string,	#not required
+    "email": string	#not required
+  }
+  ```
+    * Response:
+      * POST Code: 201 or 400 if bad request
+      * If unauthorized: 401
+      * GET Code: 200
+  ```javascript
+  {
+      "username": string,
+      "first_name": string,
+      "last_name": string,
+      "email": string
+  }
+  ```
 ## Tests
 There's some basic unit tests. <br/>
 To run them use: ` python manage.py test `
